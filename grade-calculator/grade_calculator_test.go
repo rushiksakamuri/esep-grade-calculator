@@ -34,6 +34,38 @@ func TestGetGradeB(t *testing.T) {
 	}
 }
 
+func TestGetGradeC(t *testing.T) {
+	expected_value := "C"
+
+	gradeCalculator := NewGradeCalculator()
+
+	gradeCalculator.AddGrade("open source assignment", 75, Assignment)
+	gradeCalculator.AddGrade("exam 1", 75, Exam)
+	gradeCalculator.AddGrade("essay on ai ethics", 75, Essay)
+
+	actual_value := gradeCalculator.GetFinalGrade()
+
+	if expected_value != actual_value {
+		t.Errorf("Expected GetGrade to return '%s'; got '%s' instead", expected_value, actual_value)
+	}
+}
+
+func TestGetGradeD(t *testing.T) {
+	expected_value := "D"
+
+	gradeCalculator := NewGradeCalculator()
+
+	gradeCalculator.AddGrade("open source assignment", 65, Assignment)
+	gradeCalculator.AddGrade("exam 1", 65, Exam)
+	gradeCalculator.AddGrade("essay on ai ethics", 65, Essay)
+
+	actual_value := gradeCalculator.GetFinalGrade()
+
+	if expected_value != actual_value {
+		t.Errorf("Expected GetGrade to return '%s'; got '%s' instead", expected_value, actual_value)
+	}
+}
+
 func TestGetGradeF(t *testing.T) {
 	expected_value := "F"
 
@@ -49,3 +81,24 @@ func TestGetGradeF(t *testing.T) {
 		t.Errorf("Expected GetGrade to return '%s'; got '%s' instead", expected_value, actual_value)
 	}
 }
+
+func TestGradeTypeString(t *testing.T) {
+	tests := []struct {
+		gradeType GradeType
+		expected  string
+	}{
+		{Assignment, "assignment"},
+		{Exam, "exam"},
+		{Essay, "essay"},
+	}
+
+	for _, test := range tests {
+		actual := test.gradeType.String()
+		if actual != test.expected {
+			t.Errorf("Expected %s.String() to return '%s'; got '%s' instead", 
+				test.gradeType, test.expected, actual)
+		}
+	}
+}
+
+
